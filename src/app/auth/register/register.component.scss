@@ -1,0 +1,8 @@
+p-card {
+  transform: translate(-50%, -50%);
+}
+
+::ng-deep .p-password,
+::ng-deep .p-password-input {
+  width: 100% !important;
+}

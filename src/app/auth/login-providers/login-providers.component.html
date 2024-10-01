@@ -1,0 +1,7 @@
+<p-divider class="w-6" />
+
+<div class="flex gap-3 justify-content-center">
+  @for (loginProvider of loginMethods; track loginProvider.id) {
+  <p-button [icon]="loginProvider.icon" severity="secondary" rounded="true" text="true" [id]="loginProvider.id" />
+  }
+</div>

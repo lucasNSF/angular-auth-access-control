@@ -1,0 +1,38 @@
+<p-card class="flex justify-content-center align-items-center flex-column absolute top-50 left-50">
+  <h1 class="text-center">Criar Conta</h1>
+
+  <form [formGroup]="formGroup" class="p-3 gap-5 flex flex-column max-w-full">
+    <div class="flex gap-4">
+      <p-floatLabel>
+        <input type="text" pInputText id="name" formControlName="name" />
+        <label for="name">Nome</label>
+      </p-floatLabel>
+
+      <p-floatLabel>
+        <input type="text" pInputText id="lastname" formControlName="lastName" />
+        <label for="lastname">Sobrenome</label>
+      </p-floatLabel>
+    </div>
+
+    <p-floatLabel>
+      <input type="text" pInputText id="email" class="w-full" formControlName="email" />
+      <label for="email">Email</label>
+    </p-floatLabel>
+
+    <p-floatLabel>
+      <p-password id="password" toggleMask="true" formControlName="password" />
+      <label for="password">Senha</label>
+    </p-floatLabel>
+
+    <p-button label="Criar conta" raised="true" styleClass="w-full mb-2" [disabled]="!formGroup.valid" (onClick)="signUp()" />
+  </form>
+
+  <p class="text-sm text-center">
+    Já tem uma conta?
+    <a class="font-semibold cursor-pointer hover:underline hover:text-primary" routerLink="/auth/login">
+      Faça login
+    </a>
+  </p>
+
+  <app-login-providers />
+</p-card>
