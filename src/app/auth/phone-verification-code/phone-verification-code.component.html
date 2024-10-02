@@ -1,0 +1,37 @@
+<form [formGroup]="formGroup">
+  <p-stepper [(activeStep)]="activeStep" [linear]="true">
+    <p-stepperPanel>
+      <ng-template pTemplate="content" let-nextCallback="nextCallback">
+        <section class="flex flex-column justify-content-center gap-5">
+          <p-floatLabel>
+            <p-inputMask mask="(99) 99999-9999" formControlName="phoneNumber" />
+            <label for="phoneNumber">Digite o número de telefone</label>
+          </p-floatLabel>
+
+          <div id="recaptcha-container"></div>
+
+          <p-button label="Enviar código" (onClick)="sendVerificationCode()" raised="true" styleClass="w-full" [disabled]="!formGroup.get('phoneNumber')?.valid" />
+        </section>
+      </ng-template>
+    </p-stepperPanel>
+
+    <p-stepperPanel>
+      <ng-template pTemplate="content" let-prevCallback="prevCallback">
+        <section class="flex justify-content-center flex-column gap-4">
+          <div class="flex flex-column justify-content-center align-items-center">
+            <h3>Digite o código enviado para</h3>
+            <p class="text-center font-medium font-italic">{{ formGroup.value.phoneNumber }}</p>
+          </div>
+
+          <p-inputOtp formControlName="verificationCode" [length]="6">
+            <ng-template pTemplate="input" let-token let-events="events">
+              <input pInputText class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" maxLength="1" />
+            </ng-template>
+          </p-inputOtp>
+
+          <p-button label="Verificar número" [disabled]="!formGroup.get('verificationCode')?.valid" (onClick)="verifyCode()" styleClass="w-full mt-4" [loading]="isLoading()" />
+        </section>
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
+</form>
