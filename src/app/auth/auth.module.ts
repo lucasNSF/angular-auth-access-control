@@ -11,14 +11,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputOtpModule } from 'primeng/inputotp';
+import { StepperModule } from 'primeng/stepper';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginProvidersComponent } from './login-providers/login-providers.component';
 import { LoginComponent } from './login/login.component';
 import { PhoneVerificationCodeComponent } from './phone-verification-code/phone-verification-code.component';
 import { RegisterComponent } from './register/register.component';
-import { InputMaskModule } from 'primeng/inputmask';
-import { StepperModule } from 'primeng/stepper';
-import { InputOtpModule } from 'primeng/inputotp';
 
 @NgModule({
   declarations: [

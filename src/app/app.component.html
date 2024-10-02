@@ -1,1 +1,5 @@
+@if (isLoadingTopBar()) {
+<p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+}
+<p-toast />
 <router-outlet></router-outlet>

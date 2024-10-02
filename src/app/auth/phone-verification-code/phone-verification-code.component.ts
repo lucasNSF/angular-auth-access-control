@@ -12,6 +12,10 @@ import {
   signInWithPhoneNumber,
 } from '@angular/fire/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastService } from '../../shared/services/toast.service';
+import { LoadingBarService } from '../../shared/services/loading-bar.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-phone-verification-code',
@@ -31,6 +35,10 @@ export class PhoneVerificationCodeComponent implements AfterViewInit {
   private auth = inject(Auth);
   private rv: RecaptchaVerifier | null = null;
   private cr: ConfirmationResult | null = null;
+  private router = inject(Router);
+  private toast = inject(ToastService);
+  private loadingBar = inject(LoadingBarService);
+  private dialogRef = inject(DynamicDialogRef);
 
   ngAfterViewInit(): void {
     this.rv = new RecaptchaVerifier(this.auth, 'recaptcha-container', {
@@ -47,6 +55,8 @@ export class PhoneVerificationCodeComponent implements AfterViewInit {
         throw new Error('Formulário inválido.');
       }
 
+      this.loadingBar.isLoading = true;
+
       const phoneNumber =
         '+55 ' + this.formGroup.value.phoneNumber!.replace(/\(|\)/g, '');
 
@@ -59,6 +69,8 @@ export class PhoneVerificationCodeComponent implements AfterViewInit {
       );
     } catch (err) {
       console.error(err);
+    } finally {
+      this.loadingBar.isLoading = false;
     }
   }
 
@@ -78,11 +90,26 @@ export class PhoneVerificationCodeComponent implements AfterViewInit {
 
       await this.cr.confirm(verificationCode as string);
 
-      this.isLoading.set(false);
+      this.toast.success(
+        'Login efetuado',
+        'Você realizou login com seu número de telefone'
+      );
 
-      // TODO: Redirect user
+      this.dialogRef.destroy();
+
+      this.router.navigate(['home'], {
+        replaceUrl: true,
+      });
     } catch (err) {
       console.error(err);
+      this.toast.error(
+        'Ocorreu um erro',
+        'Erro ao fazer login, tente novamente'
+      );
+    } finally {
+      this.isLoading.set(false);
+      this.rv!.clear();
+      this.rv = null;
     }
   }
 }
