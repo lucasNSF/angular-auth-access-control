@@ -19,6 +19,7 @@ import { LoginProvidersComponent } from './login-providers/login-providers.compo
 import { LoginComponent } from './login/login.component';
 import { PhoneVerificationCodeComponent } from './phone-verification-code/phone-verification-code.component';
 import { RegisterComponent } from './register/register.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegisterComponent } from './register/register.component';
     InputMaskModule,
     StepperModule,
     InputOtpModule,
+    TooltipModule,
   ],
   exports: [],
 })
