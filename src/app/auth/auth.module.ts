@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { PhoneVerificationCodeComponent } from './phone-verification-code/phone-verification-code.component';
 import { RegisterComponent } from './register/register.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
     RegisterComponent,
     LoginProvidersComponent,
     PhoneVerificationCodeComponent,
+    ConfirmEmailComponent,
   ],
   imports: [
     CommonModule,
