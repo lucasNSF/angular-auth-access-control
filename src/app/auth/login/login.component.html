@@ -1,9 +1,17 @@
-<p-card class="flex justify-content-center align-items-center flex-column absolute top-50 left-50">
+<p-card
+  class="flex justify-content-center align-items-center flex-column absolute top-50 left-50"
+>
   <h1 class="text-center">Login</h1>
 
   <form [formGroup]="formGroup" class="p-3 gap-5 flex flex-column max-w-full">
     <p-floatLabel>
-      <input type="text" pInputText id="email" class="w-full" formControlName="email" />
+      <input
+        type="text"
+        pInputText
+        id="email"
+        class="w-full"
+        formControlName="email"
+      />
       <label for="email">Email</label>
     </p-floatLabel>
 
@@ -12,12 +20,22 @@
       <label for="password">Senha</label>
     </p-floatLabel>
 
-    <p-button [disabled]="!formGroup.valid" label="Login" raised="true" styleClass="w-full mb-2" (onClick)="signIn()" />
+    <p-button
+      [disabled]="!formGroup.valid"
+      label="Login"
+      raised="true"
+      styleClass="w-full mb-2"
+      (onClick)="signIn()"
+      [loading]="isLoading()"
+    />
   </form>
 
   <p class="text-sm text-center">
     Não tem uma conta?
-    <a class="font-semibold cursor-pointer hover:underline hover:text-primary" routerLink="/auth/register">
+    <a
+      class="font-semibold cursor-pointer hover:underline hover:text-primary"
+      routerLink="/auth/register"
+    >
       Registre-se
     </a>
   </p>

@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 export class ToastService {
   private messageService = inject(MessageService);
 
-  success(title: string, message: string) {
+  success(title: string, message?: string) {
     this.messageService.add({
       severity: 'success',
       summary: title,
@@ -13,7 +13,7 @@ export class ToastService {
     });
   }
 
-  error(title: string, message: string) {
+  error(title: string, message?: string) {
     this.messageService.add({
       severity: 'error',
       summary: title,

@@ -1,10 +1,19 @@
 import { inject, Injectable } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
   updateProfile,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+
+import { ToastService } from '../../shared/services/toast.service';
+import {
+  userExists,
+  userHasEmailAndIsVerified,
+} from '../../shared/utils/auth.utils';
 
 export interface EmailAndPasswordFormData {
   name: string;
@@ -16,10 +25,33 @@ export interface EmailAndPasswordFormData {
 @Injectable({ providedIn: 'root' })
 export class EmailAndPasswordLoginService {
   private auth = inject(Auth);
+  private toast = inject(ToastService);
+  private router = inject(Router);
 
-  signIn() {
+  async signIn(email: string, password: string) {
     try {
-    } catch (err) {}
+      if (userExists(this.auth) && !userHasEmailAndIsVerified(this.auth)) {
+        this.toast.error(
+          'Ocorreu um erro',
+          'Verifique seu email para que você possa fazer o login'
+        );
+
+        throw new Error(
+          'Verifique seu email para que você possa fazer o login.'
+        );
+      }
+
+      await signInWithEmailAndPassword(this.auth, email, password);
+
+      this.toast.success('Login efetuado');
+
+      this.router.navigate(['home'], { replaceUrl: true });
+    } catch (err) {
+      const { code } = err as FirebaseError;
+      if (code === 'auth/invalid-credential') {
+        this.toast.error('Ocorreu um erro', 'Email ou senha incorretos');
+      }
+    }
   }
 
   async signUp(data: EmailAndPasswordFormData) {

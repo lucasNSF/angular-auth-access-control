@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
+
 import { LoadingBarService } from '../../shared/services/loading-bar.service';
 import { emailValidator } from '../../shared/validators/email-validator';
 import { ConfirmEmailComponent } from '../confirm-email/confirm-email.component';
@@ -14,6 +15,7 @@ import {
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
 })
 export class RegisterComponent {
   private formBuilder = inject(FormBuilder);
