@@ -6,7 +6,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+
 import { LoadingBarService } from '../shared/services/loading-bar.service';
+import {
+  userExists,
+  userHasEmail,
+  userHasEmailAndIsVerified,
+} from '../shared/utils/auth.utils';
 
 export const authGuard: CanActivateFn = async (
   next: ActivatedRouteSnapshot,
@@ -21,7 +27,10 @@ export const authGuard: CanActivateFn = async (
   try {
     await auth.authStateReady();
 
-    if (!auth.currentUser) {
+    if (
+      !userExists(auth) ||
+      (userHasEmail(auth) && !userHasEmailAndIsVerified(auth))
+    ) {
       return router.navigate(['auth', 'login'], { replaceUrl: true });
     }
 

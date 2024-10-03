@@ -1,10 +1,11 @@
-import { ToastService } from '../../shared/services/toast.service';
 import { LoginMethod } from './login-method';
 import { inject, Injectable } from '@angular/core';
-import { Auth, signInAnonymously } from '@angular/fire/auth';
+import { Auth, signInAnonymously, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { PrimeIcons } from 'primeng/api';
+
 import { LoadingBarService } from '../../shared/services/loading-bar.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class AnonymousLoginService implements LoginMethod {

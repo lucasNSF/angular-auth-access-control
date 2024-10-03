@@ -1,7 +1,13 @@
 import { inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { CanActivateFn, Router } from '@angular/router';
+
 import { LoadingBarService } from '../shared/services/loading-bar.service';
+import {
+  userExists,
+  userHasEmailAndIsVerified,
+  userIsLoggedWithoutEmailAndPasswordProvider,
+} from '../shared/utils/auth.utils';
 
 export const loginDetectorGuard: CanActivateFn = async () => {
   const auth = inject(Auth);
@@ -13,7 +19,11 @@ export const loginDetectorGuard: CanActivateFn = async () => {
   try {
     await auth.authStateReady();
 
-    if (auth.currentUser) {
+    if (
+      userExists(auth) &&
+      (userHasEmailAndIsVerified(auth) ||
+        userIsLoggedWithoutEmailAndPasswordProvider(auth))
+    ) {
       return router.navigate(['home'], {
         replaceUrl: true,
       });
