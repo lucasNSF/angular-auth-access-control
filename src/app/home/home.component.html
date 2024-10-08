@@ -1,1 +1,35 @@
-<p>home works!</p>
+<header class="w-full flex justify-content-end p-2">
+  <p-button
+    label="Sair"
+    icon="pi pi-sign-out"
+    iconPos="right"
+    (onClick)="signOut()"
+    styleClass="mr-4 mt-2"
+  />
+</header>
+
+<main>
+  <p-card styleClass="w-6 px-3 max-w-max ml-5">
+    <ng-template pTemplate="title">
+      <div class="flex gap-5 justify-content-start align-items-center">
+        <i class="pi pi-user" id="userIcon"></i>
+        <p>Informações do Usuário</p>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <p>
+        Nome: <span>{{ userInfo.displayName }}</span>
+      </p>
+      @if (userInfo.phoneNumber) {
+      <p>
+        Número de telefone:
+        <span>{{ userInfo.phoneNumber | phoneNumber }}</span>
+      </p>
+      } @if (userInfo.email) {
+      <p>
+        Email: <span>{{ userInfo.email }}</span>
+      </p>
+      }
+    </ng-template>
+  </p-card>
+</main>

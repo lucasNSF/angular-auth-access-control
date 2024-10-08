@@ -8,6 +8,7 @@ import {
 import { RouterOutlet } from '@angular/router';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
+
 import { LoadingBarService } from './shared/services/loading-bar.service';
 
 @Component({

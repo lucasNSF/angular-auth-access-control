@@ -21,6 +21,14 @@ export class ToastService {
     });
   }
 
+  info(title: string, message?: string) {
+    this.messageService.add({
+      severity: 'info',
+      summary: title,
+      detail: message,
+    });
+  }
+
   clear() {
     this.messageService.clear();
   }
